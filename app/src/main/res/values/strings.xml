@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">TaskHive</string>
+    <string name="task_name_example">Study</string>
+    <string name="important">Important</string>
+    <string name="task_date_example">Date modified: Nov 13,2021 10:00:13 PM</string>
+    <string name="enter_task_name">Enter Task name</string>
 </resources>

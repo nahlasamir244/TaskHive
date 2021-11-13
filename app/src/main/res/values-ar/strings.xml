@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">خلية المهام</string>
+    <string name="task_name_example">مذاكرة</string>
+    <string name="important">هامة</string>
+    <string name="task_date_example">Date modified: Nov 13,2021 10:00:13 PM</string>
+    <string name="enter_task_name">ادخل اسم المهمة</string>
 </resources>

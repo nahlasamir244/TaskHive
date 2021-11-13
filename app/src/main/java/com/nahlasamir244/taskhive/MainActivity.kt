@@ -2,7 +2,7 @@ package com.nahlasamir244.taskhive
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.nahlasamir244.taskhive.ui.home.HomeFragment
+import com.nahlasamir244.taskhive.ui.HomeFragment
 
 class MainActivity : AppCompatActivity() {
 
