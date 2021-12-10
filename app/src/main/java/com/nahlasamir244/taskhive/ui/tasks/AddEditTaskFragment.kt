@@ -1,4 +1,4 @@
-package com.nahlasamir244.taskhive.ui
+package com.nahlasamir244.taskhive.ui.tasks
 
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
@@ -8,24 +8,24 @@ import android.view.View
 import android.view.ViewGroup
 import com.nahlasamir244.taskhive.R
 
-class AddEditFragment : Fragment() {
+class AddEditTaskFragment : Fragment() {
 
     companion object {
-        fun newInstance() = AddEditFragment()
+        fun newInstance() = AddEditTaskFragment()
     }
 
-    private lateinit var viewModel: MainViewModel
+    private lateinit var viewModel: TaskViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View? {
-        return inflater.inflate(R.layout.fragment_add_edit, container, false)
+        return inflater.inflate(R.layout.fragment_add_edit_task, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(TaskViewModel::class.java)
         // TODO: Use the ViewModel
     }
 

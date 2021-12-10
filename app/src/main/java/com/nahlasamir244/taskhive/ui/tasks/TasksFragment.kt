@@ -1,4 +1,4 @@
-package com.nahlasamir244.taskhive.ui
+package com.nahlasamir244.taskhive.ui.tasks
 
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
@@ -8,24 +8,24 @@ import android.view.View
 import android.view.ViewGroup
 import com.nahlasamir244.taskhive.R
 
-class HomeFragment : Fragment() {
+class TasksFragment : Fragment() {
 
     companion object {
-        fun newInstance() = HomeFragment()
+        fun newInstance() = TasksFragment()
     }
 
-    private lateinit var viewModel: MainViewModel
+    private lateinit var viewModel: TaskViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        return inflater.inflate(R.layout.fragment_home, container, false)
+        return inflater.inflate(R.layout.fragment_tasks, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(TaskViewModel::class.java)
         // TODO: Use the ViewModel
     }
 
