@@ -41,7 +41,10 @@ class TasksFragment : Fragment() {
                 setHasFixedSize(true) // if layout doesnt change its dimension on screen
             }
         }
-//        tasksAdapter.submitList(viewModel)
+
+        viewModel.taskList.observe(viewLifecycleOwner){
+            tasksAdapter.submitList(it)
+        }
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
