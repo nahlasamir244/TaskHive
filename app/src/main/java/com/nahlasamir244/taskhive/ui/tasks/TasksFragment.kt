@@ -25,7 +25,7 @@ class TasksFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(TaskViewModel::class.java)
+        viewModel = ViewModelProvider(requireActivity()).get(TaskViewModel::class.java)
         // TODO: Use the ViewModel
     }
 
