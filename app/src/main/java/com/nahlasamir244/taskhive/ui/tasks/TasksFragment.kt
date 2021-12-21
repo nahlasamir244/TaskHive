@@ -1,14 +1,14 @@
 package com.nahlasamir244.taskhive.ui.tasks
 
 import android.os.Bundle
+import android.view.*
+import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.nahlasamir244.taskhive.R
 import com.nahlasamir244.taskhive.databinding.FragmentTasksBinding
+import com.nahlasamir244.taskhive.utils.onQueryTextChanged
 import dagger.hilt.android.AndroidEntryPoint
 
 //to use viewModel annotated with @viewModelInject
@@ -46,8 +46,32 @@ class TasksFragment : Fragment() {
         }
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.menu_fragment_tasks,menu)
+        val searchItem = menu.findItem(R.id.action_search)
+        val searchView = searchItem.actionView as SearchView
+        searchView.onQueryTextChanged {
+            //update search query
+        }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when(item.itemId){
+            R.id.action_sort_by_name -> {
+                true
+            }
+            R.id.action_sort_by_date_created -> {
+                true
+            }
+            R.id.action_hide_completed_tasks -> {
+                item.isChecked = !item.isChecked
+                true
+            }
+            R.id.action_delete_completed_tasks -> {
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
     }
 
 }
