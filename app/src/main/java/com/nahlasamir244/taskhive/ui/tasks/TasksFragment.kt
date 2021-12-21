@@ -51,7 +51,7 @@ class TasksFragment : Fragment() {
         val searchItem = menu.findItem(R.id.action_search)
         val searchView = searchItem.actionView as SearchView
         searchView.onQueryTextChanged {
-            //update search query
+            viewModel.searchKeyWord.value = it
         }
     }
 

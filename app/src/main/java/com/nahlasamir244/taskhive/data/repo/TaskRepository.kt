@@ -19,5 +19,5 @@ class TaskRepository @Inject constructor(private val tasksDAO: TaskDAO) {
         tasksDAO.delete(task)
     }
 
-    fun getTasks(): Flow<List<Task>> = tasksDAO.getTasks()
+    fun getTasks(searchKeyWord:String): Flow<List<Task>> = tasksDAO.getTasks(searchKeyWord)
 }
