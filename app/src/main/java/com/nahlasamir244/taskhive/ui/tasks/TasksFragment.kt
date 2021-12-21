@@ -5,12 +5,15 @@ import android.view.*
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.nahlasamir244.taskhive.R
 import com.nahlasamir244.taskhive.databinding.FragmentTasksBinding
 import com.nahlasamir244.taskhive.utils.SortType
 import com.nahlasamir244.taskhive.utils.onQueryTextChanged
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.launch
 
 //to use viewModel annotated with @viewModelInject
 //have to annotate fragment or activity with @AndroidEntryPoint
@@ -55,21 +58,27 @@ class TasksFragment : Fragment() {
         searchView.onQueryTextChanged {
             viewModel.searchKeyWord.value = it
         }
+        viewLifecycleOwner.lifecycleScope.launch {
+            //we use first instead of flow cause we want to read one value once the app started
+            //and dont get any update from collect whenever the value changes
+            menu.findItem(R.id.action_hide_completed_tasks).isChecked =
+                viewModel.taskPreferencesFlow.first().hideCompleted
+        }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when(item.itemId){
             R.id.action_sort_by_name -> {
-                viewModel.tasksSortType.value = SortType.BY_NAME
+                viewModel.onSortTypeSelected(SortType.BY_NAME)
                 true
             }
             R.id.action_sort_by_date_created -> {
-                viewModel.tasksSortType.value = SortType.BY_DATE
+                viewModel.onSortTypeSelected(SortType.BY_DATE)
                 true
             }
             R.id.action_hide_completed_tasks -> {
                 item.isChecked = !item.isChecked
-                viewModel.hideCompletedTasks.value = item.isChecked
+                viewModel.onHideCompletedClicked(item.isChecked)
                 true
             }
             R.id.action_delete_completed_tasks -> {
