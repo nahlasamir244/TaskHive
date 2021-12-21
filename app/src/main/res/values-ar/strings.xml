@@ -3,6 +3,12 @@
     <string name="app_name">خلية المهام</string>
     <string name="task_name_example">مذاكرة</string>
     <string name="important">هامة</string>
-    <string name="task_date_example">Date modified: Nov 13,2021 10:00:13 PM</string>
+    <string name="task_date_example">تاريخ التعديل: Nov 13,2021 10:00:13 PM</string>
     <string name="enter_task_name">ادخل اسم المهمة</string>
+    <string name="search">بحث</string>
+    <string name="sort">ترتيب</string>
+    <string name="sort_by_name">ترتيب ابجدى</string>
+    <string name="sort_by_date_created">ترتيب بتاريخ الانشاء</string>
+    <string name="delete_completed_tasks">مسح المهام المنتهية</string>
+    <string name="hide_completed_tasks">اخفاء المهام المنتهية</string>
 </resources>

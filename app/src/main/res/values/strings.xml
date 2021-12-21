@@ -4,4 +4,10 @@
     <string name="important">Important</string>
     <string name="task_date_example">Date modified: Nov 13,2021 10:00:13 PM</string>
     <string name="enter_task_name">Enter Task name</string>
+    <string name="search">Search</string>
+    <string name="sort">Sort</string>
+    <string name="sort_by_name">Sort By name</string>
+    <string name="sort_by_date_created">Sort by date created</string>
+    <string name="delete_completed_tasks">Delete Completed tasks</string>
+    <string name="hide_completed_tasks">Hide completed tasks</string>
 </resources>
