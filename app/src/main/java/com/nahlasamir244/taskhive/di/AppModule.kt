@@ -3,6 +3,7 @@ package com.nahlasamir244.taskhive.di
 import android.app.Application
 import androidx.room.Room
 import com.nahlasamir244.taskhive.data.offline.database.TaskHiveDatabase
+import com.nahlasamir244.taskhive.utils.Constants
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -22,7 +23,7 @@ object AppModule {
     @Singleton //singleton scoped (here it's app scoped)
     fun provideTaskDatabase(application: Application, taskCallBack: TaskHiveDatabase.TaskCallBack) =
         //database schema update will case to drop table and create a new one
-        Room.databaseBuilder(application, TaskHiveDatabase::class.java,"task_hive_database")
+        Room.databaseBuilder(application, TaskHiveDatabase::class.java,Constants.DATABASE_NAME)
             .fallbackToDestructiveMigration().addCallback(taskCallBack).build() // or add migration strategy
     @Provides
     fun provideTaskDAO(taskHiveDatabase: TaskHiveDatabase) = taskHiveDatabase.taskDao()
