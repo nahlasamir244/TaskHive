@@ -8,6 +8,7 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.nahlasamir244.taskhive.R
 import com.nahlasamir244.taskhive.databinding.FragmentTasksBinding
+import com.nahlasamir244.taskhive.utils.SortType
 import com.nahlasamir244.taskhive.utils.onQueryTextChanged
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -59,13 +60,16 @@ class TasksFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when(item.itemId){
             R.id.action_sort_by_name -> {
+                viewModel.tasksSortType.value = SortType.BY_NAME
                 true
             }
             R.id.action_sort_by_date_created -> {
+                viewModel.tasksSortType.value = SortType.BY_DATE
                 true
             }
             R.id.action_hide_completed_tasks -> {
                 item.isChecked = !item.isChecked
+                viewModel.hideCompletedTasks.value = item.isChecked
                 true
             }
             R.id.action_delete_completed_tasks -> {

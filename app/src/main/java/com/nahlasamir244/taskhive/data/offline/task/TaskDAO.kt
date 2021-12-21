@@ -19,7 +19,10 @@ interface TaskDAO {
     //on Data change new flow will be generated and can be observed and updates UI
     //can be replaced with livedata
     // || is append operator not or
-    @Query("SELECT * FROM task_table WHERE name LIKE '%' || :searchKeyWord || '%' ORDER BY important DESC")
-    fun getTasks(searchKeyWord:String):Flow<List<Task>>
+    @Query("SELECT * FROM task_table WHERE (completed != :hideCompleted OR completed=0) AND name LIKE '%' || :searchKeyWord || '%' ORDER BY important DESC , name")
+    fun getTasksSortedByName(searchKeyWord:String,hideCompleted:Boolean):Flow<List<Task>>
+
+    @Query("SELECT * FROM task_table WHERE (completed != :hideCompleted OR completed=0) AND name LIKE '%' || :searchKeyWord || '%' ORDER BY important DESC , dateModified")
+    fun getTasksSortedByDateCreated(searchKeyWord:String,hideCompleted:Boolean):Flow<List<Task>>
 
 }
