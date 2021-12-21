@@ -3,7 +3,6 @@ package com.nahlasamir244.taskhive.ui.tasks
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
-import com.nahlasamir244.taskhive.data.offline.task.TaskDAO
 import com.nahlasamir244.taskhive.data.repo.TaskRepository
 
 class TaskViewModel @ViewModelInject constructor(

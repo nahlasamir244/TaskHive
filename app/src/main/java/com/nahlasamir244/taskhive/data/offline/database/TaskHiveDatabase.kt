@@ -7,7 +7,6 @@ import com.nahlasamir244.taskhive.data.model.Task
 import com.nahlasamir244.taskhive.data.offline.task.TaskDAO
 import com.nahlasamir244.taskhive.di.ApplicationScope
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 import javax.inject.Provider

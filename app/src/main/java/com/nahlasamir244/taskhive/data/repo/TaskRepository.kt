@@ -1,8 +1,5 @@
 package com.nahlasamir244.taskhive.data.repo
 
-import androidx.room.Delete
-import androidx.room.Query
-import androidx.room.Update
 import com.nahlasamir244.taskhive.data.model.Task
 import com.nahlasamir244.taskhive.data.offline.task.TaskDAO
 import kotlinx.coroutines.flow.Flow
