@@ -12,7 +12,7 @@ class TaskViewModel @ViewModelInject constructor(
 ) : ViewModel() {
     //stateflow is similar to livedata it can hold a single value not stream but it can be still used as flow
     var searchKeyWord = MutableStateFlow("")
-    
+
     private val tasksFlow = searchKeyWord.flatMapLatest {
         taskRepository.getTasks(it)
     }

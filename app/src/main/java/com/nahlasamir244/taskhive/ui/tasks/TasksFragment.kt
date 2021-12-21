@@ -44,6 +44,7 @@ class TasksFragment : Fragment() {
         viewModel.taskList.observe(viewLifecycleOwner){
             tasksAdapter.submitList(it)
         }
+        setHasOptionsMenu(true)
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
