@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/tasksFragment"
-        android:name="com.nahlasamir244.taskhive.ui.tasks.TasksFragment"
+        android:name="com.nahlasamir244.taskhive.ui.task.tasks.TasksFragment"
         android:label="fragment_tasks"
         tools:layout="@layout/fragment_tasks" />
 </navigation>

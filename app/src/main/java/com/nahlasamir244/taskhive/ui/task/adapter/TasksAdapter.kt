@@ -1,4 +1,4 @@
-package com.nahlasamir244.taskhive.ui.tasks.adapter
+package com.nahlasamir244.taskhive.ui.task.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

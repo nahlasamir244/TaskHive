@@ -1,4 +1,4 @@
-package com.nahlasamir244.taskhive.ui.tasks
+package com.nahlasamir244.taskhive.ui.task.tasks
 
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.ViewModel
@@ -7,17 +7,25 @@ import androidx.lifecycle.viewModelScope
 import com.nahlasamir244.taskhive.data.model.Task
 import com.nahlasamir244.taskhive.data.preferences.TaskPreferencesManager
 import com.nahlasamir244.taskhive.data.repo.TaskRepository
+import com.nahlasamir244.taskhive.ui.task.tasks.TasksEvent
 import com.nahlasamir244.taskhive.utils.SortType
+import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flatMapLatest
+import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 
-class TaskViewModel @ViewModelInject constructor(
+class TasksViewModel @ViewModelInject constructor(
     private val taskRepository: TaskRepository,
     private val taskPreferencesManager: TaskPreferencesManager
 ) : ViewModel() {
     val taskPreferencesFlow = taskPreferencesManager.taskPreferencesFlow
+
+    //channel hold data of type TaskEvent to be listened in fragment
+    private val tasksEventChannel = Channel<TasksEvent>()
+    //public property to access the private property
+    val tasksEvent = tasksEventChannel.receiveAsFlow()
 
     //stateflow is similar to livedata it can hold a single value not stream but it can be still used as flow
     var searchKeyWord = MutableStateFlow("")
@@ -60,6 +68,13 @@ class TaskViewModel @ViewModelInject constructor(
     fun onTaskItemSwiped(task: Task){
         viewModelScope.launch {
             taskRepository.delete(task)
+            tasksEventChannel.send(TasksEvent.ShowUndoDeleteTasksMessage(task))
+        }
+    }
+
+    fun onUndoDeleteClicked(deletedTask: Task) {
+        viewModelScope.launch {
+            taskRepository.insert(deletedTask)
         }
     }
 

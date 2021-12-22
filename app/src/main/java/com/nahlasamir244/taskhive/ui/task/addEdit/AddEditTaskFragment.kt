@@ -1,4 +1,4 @@
-package com.nahlasamir244.taskhive.ui.tasks
+package com.nahlasamir244.taskhive.ui.task.addEdit
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import com.nahlasamir244.taskhive.R
+import com.nahlasamir244.taskhive.ui.task.tasks.TasksViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -17,7 +18,7 @@ class AddEditTaskFragment : Fragment() {
     }
 
     //delegate property to be injected by dagger
-    private val viewModel: TaskViewModel by viewModels()
+    private val viewModel: TasksViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

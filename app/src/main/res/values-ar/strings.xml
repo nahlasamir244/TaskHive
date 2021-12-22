@@ -11,4 +11,5 @@
     <string name="sort_by_date_created">ترتيب بتاريخ الانشاء</string>
     <string name="delete_completed_tasks">مسح المهام المنتهية</string>
     <string name="hide_completed_tasks">اخفاء المهام المنتهية</string>
+    <string name="undo">تراجع</string>
 </resources>

@@ -1,4 +1,4 @@
-package com.nahlasamir244.taskhive.ui.tasks.adapter
+package com.nahlasamir244.taskhive.ui.task.adapter
 
 import com.nahlasamir244.taskhive.data.model.Task
 

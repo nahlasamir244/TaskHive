@@ -10,4 +10,5 @@
     <string name="sort_by_date_created">Sort by date created</string>
     <string name="delete_completed_tasks">Delete Completed tasks</string>
     <string name="hide_completed_tasks">Hide completed tasks</string>
+    <string name="undo">Undo</string>
 </resources>

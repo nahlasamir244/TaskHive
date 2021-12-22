@@ -1,4 +1,4 @@
-package com.nahlasamir244.taskhive.ui.tasks
+package com.nahlasamir244.taskhive.ui.task.tasks
 
 import android.os.Bundle
 import android.view.*
@@ -9,14 +9,16 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.snackbar.Snackbar
 import com.nahlasamir244.taskhive.R
 import com.nahlasamir244.taskhive.data.model.Task
 import com.nahlasamir244.taskhive.databinding.FragmentTasksBinding
-import com.nahlasamir244.taskhive.ui.tasks.adapter.TasksAdapter
-import com.nahlasamir244.taskhive.ui.tasks.adapter.TasksAdapterEventHandler
+import com.nahlasamir244.taskhive.ui.task.adapter.TasksAdapter
+import com.nahlasamir244.taskhive.ui.task.adapter.TasksAdapterEventHandler
 import com.nahlasamir244.taskhive.utils.SortType
 import com.nahlasamir244.taskhive.utils.onQueryTextChanged
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 
@@ -30,7 +32,7 @@ class TasksFragment : Fragment() ,TasksAdapterEventHandler {
     }
 
     //delegate property to be injected by dagger
-    private val viewModel: TaskViewModel by viewModels()
+    private val viewModel: TasksViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -73,6 +75,21 @@ class TasksFragment : Fragment() ,TasksAdapterEventHandler {
             tasksAdapter.submitList(it)
         }
         setHasOptionsMenu(true)
+        //launchWhenStarted() cancelled when onStop is called
+        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
+             viewModel.tasksEvent.collect {
+                 event ->
+                 when(event){
+                      is TasksEvent.ShowUndoDeleteTasksMessage -> {
+                         Snackbar.make(view,"Task ${event.deletedTask.name} is deleted",Snackbar.LENGTH_LONG).setAction(
+                             R.string.undo
+                         ) {
+                             viewModel.onUndoDeleteClicked(event.deletedTask)
+                         }.show()
+                     }
+                 }
+             }
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
