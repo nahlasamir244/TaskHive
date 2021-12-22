@@ -17,6 +17,7 @@ import javax.inject.Singleton
 @Singleton
 class TaskPreferencesManager @Inject constructor(@ApplicationContext context: Context) {
     private val TAG = "TaskPreferencesManager"
+    //Data store : does its ops in background thread using flow
     private val taskDataStore = context.createDataStore(Constants.TASK_DATASTORE_NAME)
     val taskPreferencesFlow = taskDataStore.data
         .catch { exception ->
