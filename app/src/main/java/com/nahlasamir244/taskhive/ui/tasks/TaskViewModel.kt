@@ -4,6 +4,7 @@ import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
+import com.nahlasamir244.taskhive.data.model.Task
 import com.nahlasamir244.taskhive.data.preferences.TaskPreferencesManager
 import com.nahlasamir244.taskhive.data.repo.TaskRepository
 import com.nahlasamir244.taskhive.utils.SortType
@@ -47,5 +48,14 @@ class TaskViewModel @ViewModelInject constructor(
     fun onHideCompletedClicked(hideCompleted:Boolean) = viewModelScope.launch {
         taskPreferencesManager.updateHideCompletedPreferences(hideCompleted)
     }
+
+    fun onTaskItemClicked(task: Task) {
+
+    }
+
+    fun onTaskItemCompletedChecked(task: Task, checked: Boolean) =
+        viewModelScope.launch {
+            taskRepository.update(task.copy(completed = checked))
+        }
 
 }

@@ -1,4 +1,4 @@
-package com.nahlasamir244.taskhive.ui.tasks
+package com.nahlasamir244.taskhive.ui.tasks.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -18,7 +18,9 @@ import com.nahlasamir244.taskhive.databinding.ItemTaskBinding
 //list adapter needs 1- the type of list object to be bind
 //2- viewholder class to bind the data into item layout
 //3- DiffUtilItemCallback to be passed to constructor
-class TasksAdapter : ListAdapter<Task, TasksAdapter.TasksViewHolder>(TasksDiffUtil()) {
+class TasksAdapter(
+    private val tasksAdapterEventHandler: TasksAdapterEventHandler)
+    : ListAdapter<Task, TasksAdapter.TasksViewHolder>(TasksDiffUtil()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TasksViewHolder {
         val itemTaskBinding = ItemTaskBinding.inflate(
@@ -29,8 +31,25 @@ class TasksAdapter : ListAdapter<Task, TasksAdapter.TasksViewHolder>(TasksDiffUt
     override fun onBindViewHolder(holder: TasksViewHolder, position: Int) {
         holder.bind(getItem(position))
     }
-    class TasksViewHolder(private val itemTaskBinding: ItemTaskBinding) :
+    inner class TasksViewHolder(private val itemTaskBinding: ItemTaskBinding) :
         RecyclerView.ViewHolder(itemTaskBinding.root) {
+        init {
+            itemTaskBinding.apply {
+                checkboxTaskCompleted.setOnClickListener{
+                    val currentPosition = adapterPosition
+                    if (currentPosition != RecyclerView.NO_POSITION){
+                        tasksAdapterEventHandler.onTaskItemCompletedChecked(getItem(currentPosition),
+                            checkboxTaskCompleted.isChecked)
+                    }
+                }
+                root.setOnClickListener {
+                    val currentPosition = adapterPosition
+                    if (currentPosition != RecyclerView.NO_POSITION){
+                        tasksAdapterEventHandler.onTaskItemClicked(getItem(currentPosition))
+                    }
+                }
+            }
+        }
             fun bind(task:Task) {
                 itemTaskBinding.apply {
                     checkboxTaskCompleted.isChecked = task.completed
