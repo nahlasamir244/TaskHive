@@ -1,4 +1,4 @@
-package com.nahlasamir244.taskhive.ui.task.addEdit
+package com.nahlasamir244.taskhive.ui.task.views.addEdit
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

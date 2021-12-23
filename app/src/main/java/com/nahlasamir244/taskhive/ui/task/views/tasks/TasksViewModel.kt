@@ -1,4 +1,4 @@
-package com.nahlasamir244.taskhive.ui.task.tasks
+package com.nahlasamir244.taskhive.ui.task.views.tasks
 
 import androidx.hilt.Assisted
 import androidx.hilt.lifecycle.ViewModelInject
@@ -6,10 +6,9 @@ import androidx.lifecycle.*
 import com.nahlasamir244.taskhive.data.model.Task
 import com.nahlasamir244.taskhive.data.preferences.TaskPreferencesManager
 import com.nahlasamir244.taskhive.data.repo.TaskRepository
-import com.nahlasamir244.taskhive.ui.task.tasks.TasksEvent
+import com.nahlasamir244.taskhive.ui.task.event.TaskEvent
 import com.nahlasamir244.taskhive.utils.SortType
 import kotlinx.coroutines.channels.Channel
-import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.receiveAsFlow
@@ -23,7 +22,7 @@ class TasksViewModel @ViewModelInject constructor(
     val taskPreferencesFlow = taskPreferencesManager.taskPreferencesFlow
 
     //channel hold data of type TaskEvent to be listened in fragment
-    private val tasksEventChannel = Channel<TasksEvent>()
+    private val tasksEventChannel = Channel<TaskEvent>()
     //public property to access the private property
     val tasksEvent = tasksEventChannel.receiveAsFlow()
 
@@ -65,6 +64,9 @@ class TasksViewModel @ViewModelInject constructor(
             set("taskName",task.name)
             set("taskImportance",task.important)
         }
+        viewModelScope.launch {
+            tasksEventChannel.send(TaskEvent.NavigateToEditTask(task))
+        }
 
     }
 
@@ -75,7 +77,7 @@ class TasksViewModel @ViewModelInject constructor(
     fun onTaskItemSwiped(task: Task){
         viewModelScope.launch {
             taskRepository.delete(task)
-            tasksEventChannel.send(TasksEvent.ShowUndoDeleteTasksMessage(task))
+            tasksEventChannel.send(TaskEvent.ShowUndoDeleteTaskMessage(task))
         }
     }
 
@@ -86,6 +88,9 @@ class TasksViewModel @ViewModelInject constructor(
     }
 
     fun onAddTaskFabClicked(){
+        viewModelScope.launch {
+            tasksEventChannel.send(TaskEvent.NavigateToAddTask)
+        }
 
     }
 

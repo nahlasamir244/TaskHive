@@ -5,7 +5,7 @@
     android:id="@+id/frameLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.task.addEdit.AddEditTaskFragment"
+    tools:context=".ui.task.views.addEdit.AddEditTaskFragment"
     android:padding="16dp">
 
     <com.google.android.material.textfield.TextInputEditText

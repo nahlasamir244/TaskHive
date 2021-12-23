@@ -1,4 +1,4 @@
-package com.nahlasamir244.taskhive.ui.task.addEdit
+package com.nahlasamir244.taskhive.ui.task.views.addEdit
 
 import androidx.hilt.Assisted
 import androidx.hilt.lifecycle.ViewModelInject

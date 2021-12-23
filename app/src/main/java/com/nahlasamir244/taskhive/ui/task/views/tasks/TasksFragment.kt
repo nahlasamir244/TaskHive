@@ -1,11 +1,13 @@
-package com.nahlasamir244.taskhive.ui.task.tasks
+package com.nahlasamir244.taskhive.ui.task.views.tasks
 
 import android.os.Bundle
 import android.view.*
 import androidx.appcompat.widget.SearchView
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -15,7 +17,9 @@ import com.nahlasamir244.taskhive.data.model.Task
 import com.nahlasamir244.taskhive.databinding.FragmentTasksBinding
 import com.nahlasamir244.taskhive.ui.task.adapter.TasksAdapter
 import com.nahlasamir244.taskhive.ui.task.adapter.TasksAdapterEventHandler
+import com.nahlasamir244.taskhive.ui.task.event.TaskEvent
 import com.nahlasamir244.taskhive.utils.SortType
+import com.nahlasamir244.taskhive.utils.exhaustive
 import com.nahlasamir244.taskhive.utils.onQueryTextChanged
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
@@ -70,6 +74,9 @@ class TasksFragment : Fragment() ,TasksAdapterEventHandler {
                 }
 
             }).attachToRecyclerView(recyclerViewTasks)
+            fabAddTask.setOnClickListener {
+                viewModel.onAddTaskFabClicked()
+            }
         }
 
         viewModel.taskList.observe(viewLifecycleOwner){
@@ -81,14 +88,23 @@ class TasksFragment : Fragment() ,TasksAdapterEventHandler {
              viewModel.tasksEvent.collect {
                  event ->
                  when(event){
-                      is TasksEvent.ShowUndoDeleteTasksMessage -> {
+                      is TaskEvent.ShowUndoDeleteTaskMessage -> {
                          Snackbar.make(view,"Task ${event.deletedTask.name} is deleted",Snackbar.LENGTH_LONG).setAction(
                              R.string.undo
                          ) {
                              viewModel.onUndoDeleteClicked(event.deletedTask)
                          }.show()
                      }
-                 }
+                     is TaskEvent.NavigateToAddTask -> {
+
+                         findNavController().navigate(TasksFragmentDirections.actionTasksFragmentToAddEditTaskFragment())
+                     }
+                     is TaskEvent.NavigateToEditTask -> {
+                         findNavController().navigate(
+                             TasksFragmentDirections.actionTasksFragmentToAddEditTaskFragment
+                                 (event.task))
+                     }
+                 }.exhaustive
              }
         }
     }
