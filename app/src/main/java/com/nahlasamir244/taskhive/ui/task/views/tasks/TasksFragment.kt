@@ -96,13 +96,12 @@ class TasksFragment : Fragment() ,TasksAdapterEventHandler {
                          }.show()
                      }
                      is TaskEvent.NavigateToAddTask -> {
-
-                         findNavController().navigate(TasksFragmentDirections.actionTasksFragmentToAddEditTaskFragment())
+                         findNavController().navigate(TasksFragmentDirections.actionTasksFragmentToAddEditTaskFragment(null,"New Task"))
                      }
                      is TaskEvent.NavigateToEditTask -> {
                          findNavController().navigate(
                              TasksFragmentDirections.actionTasksFragmentToAddEditTaskFragment
-                                 (event.task))
+                                 (event.task,"Edit Task"))
                      }
                  }.exhaustive
              }

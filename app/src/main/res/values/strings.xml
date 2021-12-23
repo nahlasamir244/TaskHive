@@ -11,4 +11,5 @@
     <string name="delete_completed_tasks">Delete Completed tasks</string>
     <string name="hide_completed_tasks">Hide completed tasks</string>
     <string name="undo">Undo</string>
+    <string name="tasks">Tasks</string>
 </resources>
