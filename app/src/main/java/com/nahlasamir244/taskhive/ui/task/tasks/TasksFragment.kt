@@ -42,6 +42,7 @@ class TasksFragment : Fragment() ,TasksAdapterEventHandler {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         val binding = FragmentTasksBinding.bind(view)
         val tasksAdapter = TasksAdapter(this)
         binding.apply {
