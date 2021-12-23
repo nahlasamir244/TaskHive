@@ -1,9 +1,8 @@
 package com.nahlasamir244.taskhive.ui.task.tasks
 
+import androidx.hilt.Assisted
 import androidx.hilt.lifecycle.ViewModelInject
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.asLiveData
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.nahlasamir244.taskhive.data.model.Task
 import com.nahlasamir244.taskhive.data.preferences.TaskPreferencesManager
 import com.nahlasamir244.taskhive.data.repo.TaskRepository
@@ -18,7 +17,8 @@ import kotlinx.coroutines.launch
 
 class TasksViewModel @ViewModelInject constructor(
     private val taskRepository: TaskRepository,
-    private val taskPreferencesManager: TaskPreferencesManager
+    private val taskPreferencesManager: TaskPreferencesManager,
+    @Assisted private val state:SavedStateHandle
 ) : ViewModel() {
     val taskPreferencesFlow = taskPreferencesManager.taskPreferencesFlow
 
@@ -28,7 +28,9 @@ class TasksViewModel @ViewModelInject constructor(
     val tasksEvent = tasksEventChannel.receiveAsFlow()
 
     //stateflow is similar to livedata it can hold a single value not stream but it can be still used as flow
-    var searchKeyWord = MutableStateFlow("")
+    //var searchKeyWord = MutableStateFlow("")
+    //getLiveData in savedstatehandle gives you live updates no need to set
+    var searchKeyWord = state.getLiveData("searchKeyword","")
 
     //    private val tasksFlow = searchKeyWord.flatMapLatest {
 //        taskRepository.getTasks(it)
@@ -37,7 +39,7 @@ class TasksViewModel @ViewModelInject constructor(
     //combine : takes multiple flows to single flow
     // and execute lambda whenever anyone of the flow emits new value
     private val tasksFlow = combine(
-        searchKeyWord,
+        searchKeyWord.asFlow(),
         taskPreferencesFlow
     ) { keyword, taskPreferences ->
         Pair(keyword, taskPreferences)
@@ -58,6 +60,11 @@ class TasksViewModel @ViewModelInject constructor(
     }
 
     fun onTaskItemClicked(task: Task) {
+        state.apply {
+            set("task",task)
+            set("taskName",task.name)
+            set("taskImportance",task.important)
+        }
 
     }
 
@@ -77,5 +84,10 @@ class TasksViewModel @ViewModelInject constructor(
             taskRepository.insert(deletedTask)
         }
     }
+
+    fun onAddTaskFabClicked(){
+
+    }
+
 
 }

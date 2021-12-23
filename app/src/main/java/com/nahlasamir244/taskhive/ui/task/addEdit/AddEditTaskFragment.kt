@@ -18,7 +18,7 @@ class AddEditTaskFragment : Fragment() {
     }
 
     //delegate property to be injected by dagger
-    private val viewModel: TasksViewModel by viewModels()
+    private val viewModel: AddEditViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
