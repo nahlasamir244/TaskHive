@@ -13,4 +13,6 @@
     <string name="hide_completed_tasks">اخفاء المهام المنتهية</string>
     <string name="undo">تراجع</string>
     <string name="tasks">المهام</string>
+    <string name="task_added_successfully_message">تم اضافة المهمة بنجاح</string>
+    <string name="task_updated_successfully_message">تم حفظ التعديل بنجاح</string>
 </resources>

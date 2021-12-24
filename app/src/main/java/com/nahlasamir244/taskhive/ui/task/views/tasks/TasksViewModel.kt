@@ -3,10 +3,11 @@ package com.nahlasamir244.taskhive.ui.task.views.tasks
 import androidx.hilt.Assisted
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
+import com.nahlasamir244.taskhive.R
 import com.nahlasamir244.taskhive.data.model.Task
 import com.nahlasamir244.taskhive.data.preferences.TaskPreferencesManager
 import com.nahlasamir244.taskhive.data.repo.TaskRepository
-import com.nahlasamir244.taskhive.ui.task.event.TaskEvent
+import com.nahlasamir244.taskhive.utils.Constants
 import com.nahlasamir244.taskhive.utils.SortType
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.combine
@@ -22,7 +23,7 @@ class TasksViewModel @ViewModelInject constructor(
     val taskPreferencesFlow = taskPreferencesManager.taskPreferencesFlow
 
     //channel hold data of type TaskEvent to be listened in fragment
-    private val tasksEventChannel = Channel<TaskEvent>()
+    private val tasksEventChannel = Channel<TasksEvent>()
     //public property to access the private property
     val tasksEvent = tasksEventChannel.receiveAsFlow()
 
@@ -65,7 +66,7 @@ class TasksViewModel @ViewModelInject constructor(
             set("taskImportance",task.important)
         }
         viewModelScope.launch {
-            tasksEventChannel.send(TaskEvent.NavigateToEditTask(task))
+            tasksEventChannel.send(TasksEvent.NavigateToEditTask(task))
         }
 
     }
@@ -77,7 +78,7 @@ class TasksViewModel @ViewModelInject constructor(
     fun onTaskItemSwiped(task: Task){
         viewModelScope.launch {
             taskRepository.delete(task)
-            tasksEventChannel.send(TaskEvent.ShowUndoDeleteTaskMessage(task))
+            tasksEventChannel.send(TasksEvent.ShowUndoDeleteTaskMessage(task))
         }
     }
 
@@ -89,9 +90,26 @@ class TasksViewModel @ViewModelInject constructor(
 
     fun onAddTaskFabClicked(){
         viewModelScope.launch {
-            tasksEventChannel.send(TaskEvent.NavigateToAddTask)
+            tasksEventChannel.send(TasksEvent.NavigateToAddTask)
         }
 
+    }
+
+    fun onAddEditResult(result: Int) {
+        when(result){
+            Constants.ADD_TASK_RESULT_OK -> {
+                showTaskSavedConfirmationMessage(R.string.task_added_successfully_message)
+            }
+            Constants.EDIT_TASK_RESULT_OK -> {
+                showTaskSavedConfirmationMessage(R.string.task_updated_successfully_message)
+            }
+        }
+    }
+
+    private fun showTaskSavedConfirmationMessage(messageResource: Int) {
+        viewModelScope.launch {
+            tasksEventChannel.send(TasksEvent.ShowTaskSavedConfirmationMessage(messageResource))
+        }
     }
 
 

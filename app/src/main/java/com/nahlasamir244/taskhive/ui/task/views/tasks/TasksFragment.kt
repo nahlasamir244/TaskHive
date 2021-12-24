@@ -3,8 +3,8 @@ package com.nahlasamir244.taskhive.ui.task.views.tasks
 import android.os.Bundle
 import android.view.*
 import androidx.appcompat.widget.SearchView
-import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -17,7 +17,7 @@ import com.nahlasamir244.taskhive.data.model.Task
 import com.nahlasamir244.taskhive.databinding.FragmentTasksBinding
 import com.nahlasamir244.taskhive.ui.task.adapter.TasksAdapter
 import com.nahlasamir244.taskhive.ui.task.adapter.TasksAdapterEventHandler
-import com.nahlasamir244.taskhive.ui.task.event.TaskEvent
+import com.nahlasamir244.taskhive.utils.Constants
 import com.nahlasamir244.taskhive.utils.SortType
 import com.nahlasamir244.taskhive.utils.exhaustive
 import com.nahlasamir244.taskhive.utils.onQueryTextChanged
@@ -78,6 +78,11 @@ class TasksFragment : Fragment() ,TasksAdapterEventHandler {
                 viewModel.onAddTaskFabClicked()
             }
         }
+        setFragmentResultListener(Constants.ADD_EDIT_TASK_REQUEST_KEY){
+            _,bundle ->
+                val result = bundle.getInt(Constants.ADD_EDIT_TASK_RESULT_KEY)
+            viewModel.onAddEditResult(result)
+        }
 
         viewModel.taskList.observe(viewLifecycleOwner){
             tasksAdapter.submitList(it)
@@ -88,21 +93,23 @@ class TasksFragment : Fragment() ,TasksAdapterEventHandler {
              viewModel.tasksEvent.collect {
                  event ->
                  when(event){
-                      is TaskEvent.ShowUndoDeleteTaskMessage -> {
+                      is TasksEvent.ShowUndoDeleteTaskMessage -> {
                          Snackbar.make(view,"Task ${event.deletedTask.name} is deleted",Snackbar.LENGTH_LONG).setAction(
                              R.string.undo
                          ) {
                              viewModel.onUndoDeleteClicked(event.deletedTask)
                          }.show()
                      }
-                     is TaskEvent.NavigateToAddTask -> {
-                         findNavController().navigate(TasksFragmentDirections.actionTasksFragmentToAddEditTaskFragment(null,"New Task"))
+                     is TasksEvent.NavigateToAddTask -> {
+                         findNavController().navigate(TasksFragmentDirections.actionTasksFragmentToAddEditTaskFragment(title = "New Task"))
                      }
-                     is TaskEvent.NavigateToEditTask -> {
+                     is TasksEvent.NavigateToEditTask -> {
                          findNavController().navigate(
                              TasksFragmentDirections.actionTasksFragmentToAddEditTaskFragment
                                  (event.task,"Edit Task"))
                      }
+                     is TasksEvent.ShowTaskSavedConfirmationMessage ->
+                     Snackbar.make(requireView(), event.messageResource, Snackbar.LENGTH_SHORT).show()
                  }.exhaustive
              }
         }

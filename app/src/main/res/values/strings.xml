@@ -12,4 +12,6 @@
     <string name="hide_completed_tasks">Hide completed tasks</string>
     <string name="undo">Undo</string>
     <string name="tasks">Tasks</string>
+    <string name="task_added_successfully_message">Task added successfully</string>
+    <string name="task_updated_successfully_message">Task updated successfully </string>
 </resources>
