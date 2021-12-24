@@ -110,6 +110,8 @@ class TasksFragment : Fragment() ,TasksAdapterEventHandler {
                      }
                      is TasksEvent.ShowTaskSavedConfirmationMessage ->
                      Snackbar.make(requireView(), event.messageResource, Snackbar.LENGTH_SHORT).show()
+                     TasksEvent.NavigateToDeleteCompletedTasks ->
+                         findNavController().navigate(TasksFragmentDirections.actionGlobalDeleteCompletedTasksFragment())
                  }.exhaustive
              }
         }
@@ -146,6 +148,7 @@ class TasksFragment : Fragment() ,TasksAdapterEventHandler {
                 true
             }
             R.id.action_delete_completed_tasks -> {
+                viewModel.onDeleteCompletedTasksClicked()
                 true
             }
             else -> super.onOptionsItemSelected(item)

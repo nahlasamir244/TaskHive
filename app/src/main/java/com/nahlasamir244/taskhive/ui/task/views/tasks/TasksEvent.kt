@@ -7,4 +7,5 @@ sealed class TasksEvent {
     object NavigateToAddTask : TasksEvent()
     data class NavigateToEditTask(val task: Task) : TasksEvent()
     data class ShowTaskSavedConfirmationMessage(val messageResource:Int):TasksEvent()
+    object NavigateToDeleteCompletedTasks : TasksEvent()
 }

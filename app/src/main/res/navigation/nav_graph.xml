@@ -29,4 +29,8 @@
             android:name="title"
             app:argType="string" />
     </fragment>
+    <dialog
+        android:id="@+id/deleteCompletedTasksFragment"
+        android:name="com.nahlasamir244.taskhive.ui.task.views.deleteCompleted.DeleteCompletedTasksFragment"
+        android:label="DeleteCompletedTasksFragment" /><action android:id="@+id/action_global_deleteCompletedTasksFragment" app:destination="@id/deleteCompletedTasksFragment"/>
 </navigation>

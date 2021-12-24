@@ -112,5 +112,9 @@ class TasksViewModel @ViewModelInject constructor(
         }
     }
 
+    fun onDeleteCompletedTasksClicked() = viewModelScope.launch {
+        tasksEventChannel.send(TasksEvent.NavigateToDeleteCompletedTasks)
+    }
+
 
 }
