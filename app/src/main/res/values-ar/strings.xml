@@ -15,4 +15,8 @@
     <string name="tasks">المهام</string>
     <string name="task_added_successfully_message">تم اضافة المهمة بنجاح</string>
     <string name="task_updated_successfully_message">تم حفظ التعديل بنجاح</string>
+    <string name="confirm_deletion">تأكيد المسح</string>
+    <string name="delete_all_completed_tasks_dialog_message">هل انت متأكد من انك ترغب فى مسح جميع المهام المنتهية ؟</string>
+    <string name="cancel">الغاء</string>
+    <string name="yes">نعم</string>
 </resources>

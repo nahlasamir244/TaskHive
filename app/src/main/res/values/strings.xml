@@ -14,4 +14,8 @@
     <string name="tasks">Tasks</string>
     <string name="task_added_successfully_message">Task added successfully</string>
     <string name="task_updated_successfully_message">Task updated successfully </string>
+    <string name="confirm_deletion">Confirm Deletion</string>
+    <string name="delete_all_completed_tasks_dialog_message">Are you sure you want to delete all completed tasks ?</string>
+    <string name="cancel">Cancel</string>
+    <string name="yes">Yes</string>
 </resources>

@@ -6,6 +6,7 @@
         <entry key="..\:/TaskHive/app/src/main/res/drawable/ic_add.xml" value="0.1" />
         <entry key="..\:/TaskHive/app/src/main/res/drawable/ic_priority.xml" value="0.178125" />
         <entry key="..\:/TaskHive/app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="..\:/TaskHive/app/src/main/res/layout/delete_completed_tasks_fragment.xml" value="0.16197916666666667" />
         <entry key="..\:/TaskHive/app/src/main/res/layout/fragment_add_edit.xml" value="0.22" />
         <entry key="..\:/TaskHive/app/src/main/res/layout/fragment_add_edit_task.xml" value="0.16197916666666667" />
         <entry key="..\:/TaskHive/app/src/main/res/layout/fragment_home.xml" value="0.22" />
