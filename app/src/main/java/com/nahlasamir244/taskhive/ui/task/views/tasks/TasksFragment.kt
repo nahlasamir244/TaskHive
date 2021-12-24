@@ -37,6 +37,7 @@ class TasksFragment : Fragment() ,TasksAdapterEventHandler {
 
     //delegate property to be injected by dagger
     private val viewModel: TasksViewModel by viewModels()
+    private lateinit var searchView : SearchView
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -120,7 +121,14 @@ class TasksFragment : Fragment() ,TasksAdapterEventHandler {
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.menu_fragment_tasks,menu)
         val searchItem = menu.findItem(R.id.action_search)
-        val searchView = searchItem.actionView as SearchView
+        searchView = searchItem.actionView as SearchView
+        val pendingQuery: String? = viewModel.searchKeyWord.value
+        if (pendingQuery != null && pendingQuery.isNotEmpty()){
+            //restore query state before process death :
+            searchItem.expandActionView()
+            searchView.setQuery(pendingQuery,false)
+        }
+
         searchView.onQueryTextChanged {
             viewModel.searchKeyWord.value = it
         }
@@ -153,6 +161,11 @@ class TasksFragment : Fragment() ,TasksAdapterEventHandler {
             }
             else -> super.onOptionsItemSelected(item)
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        searchView.setOnQueryTextListener(null)
     }
 
     override fun onTaskItemClicked(task: Task) {
