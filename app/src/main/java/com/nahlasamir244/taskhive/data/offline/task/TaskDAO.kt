@@ -25,4 +25,7 @@ interface TaskDAO {
     @Query("SELECT * FROM task_table WHERE (completed != :hideCompleted OR completed=0) AND name LIKE '%' || :searchKeyWord || '%' ORDER BY important DESC , dateModified")
     fun getTasksSortedByDateCreated(searchKeyWord:String,hideCompleted:Boolean):Flow<List<Task>>
 
+    @Query("DELETE FROM task_table WHERE completed = 1")
+    suspend fun deleteCompletedTasks()
+
 }

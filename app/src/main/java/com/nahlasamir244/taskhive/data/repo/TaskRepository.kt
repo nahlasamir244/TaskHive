@@ -24,4 +24,8 @@ class TaskRepository @Inject constructor(private val tasksDAO: TaskDAO) {
             Flow<List<Task>> =
         if (sortType == SortType.BY_NAME) tasksDAO.getTasksSortedByName(searchKeyWord, hidCompleted)
         else tasksDAO.getTasksSortedByDateCreated(searchKeyWord, hidCompleted)
+
+    suspend fun deleteCompletedTasks(){
+        tasksDAO.deleteCompletedTasks()
+    }
 }
