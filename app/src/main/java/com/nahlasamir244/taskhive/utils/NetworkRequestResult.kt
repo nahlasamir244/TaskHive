@@ -1,6 +1,6 @@
 package com.nahlasamir244.taskhive.utils
 
-//utility class to hold the request data with UI state 
+//utility class to hold the request data with UI state
 sealed class NetworkRequestResult<out R> {
     data class Success<T>(var data: T?) : NetworkRequestResult<T>()
     data class Error<T>(val exception: Exception, val message: String?,var data:T?) :
