@@ -2,6 +2,10 @@ package com.nahlasamir244.taskhive.di
 
 import android.app.Application
 import androidx.room.Room
+import com.nahlasamir244.taskhive.BuildConfig
+import com.nahlasamir244.taskhive.data.netwrok.TaskApiHelper
+import com.nahlasamir244.taskhive.data.netwrok.TaskApiHelperImpl
+import com.nahlasamir244.taskhive.data.netwrok.TaskApiService
 import com.nahlasamir244.taskhive.data.offline.database.TaskHiveDatabase
 import com.nahlasamir244.taskhive.utils.Constants
 import dagger.Module
@@ -10,6 +14,10 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ApplicationComponent
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.SupervisorJob
+import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
+import retrofit2.Retrofit
+import retrofit2.converter.moshi.MoshiConverterFactory
 import javax.inject.Qualifier
 import javax.inject.Singleton
 
@@ -37,8 +45,48 @@ object AppModule {
     //coroutines get canceled wherever any of its children fails so the supervisorjob stops this behavior to keep the other running
     //whenever a coroutine fails
 
+    @Provides
+    @BaseUrl
+    fun provideBaseUrl() = "https://taskhive.free.beeceptor.com/"
+
+    @Provides
+    @Singleton
+    fun provideOkHttpClient() = if (BuildConfig.DEBUG) {
+        //log request and response only in debugging mode
+        val loggingInterceptor = HttpLoggingInterceptor()
+        loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY)
+        OkHttpClient.Builder()
+            .addInterceptor(loggingInterceptor)
+            .build()
+    } else OkHttpClient
+        .Builder()
+        .build()
+
+
+    @Provides
+    @Singleton
+    fun provideRetrofit(okHttpClient: OkHttpClient, @BaseUrl baseUrl: String): Retrofit =
+        Retrofit.Builder()
+            .addConverterFactory(MoshiConverterFactory.create())
+            .baseUrl(baseUrl)
+            .client(okHttpClient)
+            .build()
+
+    @Provides
+    @Singleton
+    fun provideApiService(retrofit: Retrofit) = retrofit.create(TaskApiService::class.java)
+
+    @Provides
+    @Singleton
+    fun provideApiHelper(taskApiHelperImpl: TaskApiHelperImpl): TaskApiHelper = taskApiHelperImpl
+
+
 }
 
 @Retention(AnnotationRetention.RUNTIME)
 @Qualifier
 annotation class ApplicationScope
+
+@Retention(AnnotationRetention.RUNTIME)
+@Qualifier
+annotation class BaseUrl
