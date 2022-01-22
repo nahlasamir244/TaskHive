@@ -8,6 +8,7 @@ import com.nahlasamir244.taskhive.data.netwrok.TaskApiHelperImpl
 import com.nahlasamir244.taskhive.data.netwrok.TaskApiService
 import com.nahlasamir244.taskhive.data.offline.database.TaskHiveDatabase
 import com.nahlasamir244.taskhive.utils.Constants
+import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -74,7 +75,7 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideApiService(retrofit: Retrofit) = retrofit.create(TaskApiService::class.java)
+    fun provideApiService(retrofit: Retrofit): TaskApiService = retrofit.create(TaskApiService::class.java)
 
     @Provides
     @Singleton

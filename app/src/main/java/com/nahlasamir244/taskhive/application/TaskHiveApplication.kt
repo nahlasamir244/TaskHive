@@ -5,5 +5,4 @@ import dagger.hilt.android.HiltAndroidApp
 
 //this step to activate dagger hilt
 @HiltAndroidApp
-class TaskHiveApplication :Application() {
-}
+class TaskHiveApplication :Application()

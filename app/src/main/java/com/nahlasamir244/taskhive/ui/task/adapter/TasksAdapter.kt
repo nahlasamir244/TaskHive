@@ -1,5 +1,6 @@
 package com.nahlasamir244.taskhive.ui.task.adapter
 
+import android.app.AlertDialog
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.view.isVisible
@@ -15,7 +16,8 @@ import com.nahlasamir244.taskhive.databinding.ItemTaskBinding
 // it calculate the difference and dispatch the correct updates and animations
 //flowable return new listen not single change event
 //listAdapter does its op in background thread
-//list adapter needs 1- the type of list object to be bind
+//list adapter needs 3 :
+//1- the type of list object to be bind
 //2- viewholder class to bind the data into item layout
 //3- DiffUtilItemCallback to be passed to constructor
 class TasksAdapter(
@@ -27,7 +29,6 @@ class TasksAdapter(
             LayoutInflater.from(parent.context),parent,false)
         return TasksViewHolder(itemTaskBinding)
     }
-
     override fun onBindViewHolder(holder: TasksViewHolder, position: Int) {
         holder.bind(getItem(position))
     }
