@@ -8,6 +8,8 @@ import com.nahlasamir244.taskhive.data.model.Task
 import com.nahlasamir244.taskhive.data.preferences.TaskPreferencesManager
 import com.nahlasamir244.taskhive.data.repo.TaskRepository
 import com.nahlasamir244.taskhive.utils.Constants
+import com.nahlasamir244.taskhive.utils.NetworkRequestResult
+import com.nahlasamir244.taskhive.utils.NetworkStatusHelper
 import com.nahlasamir244.taskhive.utils.SortType
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.combine
@@ -18,8 +20,30 @@ import kotlinx.coroutines.launch
 class TasksViewModel @ViewModelInject constructor(
     private val taskRepository: TaskRepository,
     private val taskPreferencesManager: TaskPreferencesManager,
-    @Assisted private val state:SavedStateHandle
+    @Assisted private val state:SavedStateHandle,
+    private val networkStatusHelper: NetworkStatusHelper
 ) : ViewModel() {
+    val tasks :MutableLiveData<NetworkRequestResult<List<Task>>>
+    = MutableLiveData(NetworkRequestResult.Loading(null))
+    init {
+        fetchTasks()
+    }
+
+    private fun fetchTasks() {
+        viewModelScope.launch {
+            tasks.postValue(NetworkRequestResult.Loading(null))
+            if (networkStatusHelper.isNetworkConnected()) {
+                taskRepository.getTasks().let {
+                    if (it.isSuccessful) {
+                        tasks.postValue(NetworkRequestResult.Success(it.body()))
+                    } else
+                        tasks.postValue(NetworkRequestResult.Error(it.errorBody().toString(),taskList.value))
+                }
+            } else tasks.postValue(NetworkRequestResult.Error("No Internet Connection",taskList.value))
+        }
+    }
+
+
     val taskPreferencesFlow = taskPreferencesManager.taskPreferencesFlow
 
     //channel hold data of type TaskEvent to be listened in fragment
@@ -67,6 +91,7 @@ class TasksViewModel @ViewModelInject constructor(
         }
         viewModelScope.launch {
             tasksEventChannel.send(TasksEvent.NavigateToEditTask(task))
+
         }
 
     }

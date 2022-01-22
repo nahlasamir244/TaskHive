@@ -2,6 +2,7 @@ package com.nahlasamir244.taskhive.ui.task.views.tasks
 
 import android.os.Bundle
 import android.view.*
+import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResultListener
@@ -17,11 +18,9 @@ import com.nahlasamir244.taskhive.data.model.Task
 import com.nahlasamir244.taskhive.databinding.FragmentTasksBinding
 import com.nahlasamir244.taskhive.ui.task.adapter.TasksAdapter
 import com.nahlasamir244.taskhive.ui.task.adapter.TasksAdapterEventHandler
-import com.nahlasamir244.taskhive.utils.Constants
-import com.nahlasamir244.taskhive.utils.SortType
-import com.nahlasamir244.taskhive.utils.exhaustive
-import com.nahlasamir244.taskhive.utils.onQueryTextChanged
+import com.nahlasamir244.taskhive.utils.*
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.android.synthetic.main.fragment_tasks.*
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
@@ -31,13 +30,10 @@ import kotlinx.coroutines.launch
 @AndroidEntryPoint
 class TasksFragment : Fragment() ,TasksAdapterEventHandler {
 
-    companion object {
-        fun newInstance() = TasksFragment()
-    }
-
     //delegate property to be injected by dagger
     private val viewModel: TasksViewModel by viewModels()
     private lateinit var searchView : SearchView
+    private lateinit var tasksAdapter:TasksAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -49,7 +45,7 @@ class TasksFragment : Fragment() ,TasksAdapterEventHandler {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val binding = FragmentTasksBinding.bind(view)
-        val tasksAdapter = TasksAdapter(this)
+        tasksAdapter = TasksAdapter(this)
         binding.apply {
             recyclerViewTasks.apply {
                 adapter = tasksAdapter
@@ -88,6 +84,7 @@ class TasksFragment : Fragment() ,TasksAdapterEventHandler {
         viewModel.taskList.observe(viewLifecycleOwner){
             tasksAdapter.submitList(it)
         }
+//        observeNetworkResult()
         setHasOptionsMenu(true)
         //launchWhenStarted() cancelled when onStop is called
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
@@ -116,6 +113,7 @@ class TasksFragment : Fragment() ,TasksAdapterEventHandler {
                  }.exhaustive
              }
         }
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -176,4 +174,23 @@ class TasksFragment : Fragment() ,TasksAdapterEventHandler {
         viewModel.onTaskItemCompletedChecked(task,isChecked)
     }
 
+    private fun observeNetworkResult() {
+        viewModel.tasks.observe(viewLifecycleOwner, {
+            when (it) {
+                is NetworkRequestResult.Success -> {
+                    progressBar.visibility = View.GONE
+                    it.data?.let { tasksAdapter.submitList(it) }
+                    recycler_view_tasks.visibility = View.VISIBLE
+                }
+                is NetworkRequestResult.Loading -> {
+                    progressBar.visibility = View.VISIBLE
+                    recycler_view_tasks.visibility = View.GONE
+                }
+                is NetworkRequestResult.Error -> {
+                    progressBar.visibility = View.GONE
+                    Toast.makeText(requireContext(), it.message, Toast.LENGTH_LONG).show()
+                }
+            }
+        })
+    }
 }
