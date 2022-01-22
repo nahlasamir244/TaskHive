@@ -1,7 +1,6 @@
 package com.nahlasamir244.taskhive.ui.task.views.deleteCompleted
 
 import android.app.Dialog
-import android.content.DialogInterface
 import android.os.Bundle
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment

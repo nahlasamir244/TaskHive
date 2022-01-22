@@ -23,10 +23,6 @@ import kotlinx.coroutines.flow.collect
 @AndroidEntryPoint
 class AddEditTaskFragment : Fragment() {
 
-    companion object {
-        fun newInstance() = AddEditTaskFragment()
-    }
-
     //delegate property to be injected by dagger
     private val viewModel: AddEditViewModel by viewModels()
 

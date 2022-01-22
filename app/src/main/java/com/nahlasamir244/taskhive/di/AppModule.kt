@@ -8,7 +8,6 @@ import com.nahlasamir244.taskhive.data.netwrok.TaskApiHelperImpl
 import com.nahlasamir244.taskhive.data.netwrok.TaskApiService
 import com.nahlasamir244.taskhive.data.offline.database.TaskHiveDatabase
 import com.nahlasamir244.taskhive.utils.Constants
-import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
