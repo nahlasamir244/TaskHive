@@ -28,13 +28,12 @@ MVVM single activity architecture with Helper class Resource to map viewmodel da
 
 ## Screenshots
 
-![Screenshot_1642894336](https://user-images.githubusercontent.com/46246511/150660627-3134a857-b62b-4ea5-853b-a6d9c609256b.png)
-![Screenshot_1642894357](https://user-images.githubusercontent.com/46246511/150660628-c6378a4a-ac92-4f5b-80d2-a5fb7f0baf26.png)
-![Screenshot_1642894366](https://user-images.githubusercontent.com/46246511/150660629-db906f1a-9f33-4ef3-a2e1-aa06549c4ecc.png)
-![Screenshot_1642894399](https://user-images.githubusercontent.com/46246511/150660630-9148a8bf-7f91-494d-bfcb-7196716cbf6a.png)
-![Screenshot_1642894408](https://user-images.githubusercontent.com/46246511/150660631-786850f2-2d10-42be-8423-e5bf80db7d80.png)
-![Screenshot_1642894426](https://user-images.githubusercontent.com/46246511/150660633-41870018-b7f2-4138-8ac2-3f76039f3d1b.png)
-![Screenshot_1642894573](https://user-images.githubusercontent.com/46246511/150660634-8424d9b2-07c2-47c6-a308-2e0b4b4385ea.png)
-![Screenshot_1642894295](https://user-images.githubusercontent.com/46246511/150660635-0e272bff-fef9-450d-8842-0b3effe89df3.png)
-![Screenshot_1642894326](https://user-images.githubusercontent.com/46246511/150660636-60f15b3e-d4b0-401e-b827-41bbc56f7424.png)
-
+<kbd><img width="216" height="432" src="screenshots/1.png" alt="" /></kbd>
+<kbd><img width="216" height="432" src="screenshots/2.png" alt="" /></kbd>
+<kbd><img width="216" height="432" src="screenshots/3.png" alt="" /></kbd>
+<kbd><img width="216" height="432" src="screenshots/4.png" alt="" /></kbd>
+<kbd><img width="216" height="432" src="screenshots/5.png" alt="" /></kbd>
+<kbd><img width="216" height="432" src="screenshots/6.png" alt="" /></kbd>
+<kbd><img width="216" height="432" src="screenshots/7.png" alt="" /></kbd>
+<kbd><img width="216" height="432" src="screenshots/8.png" alt="" /></kbd>
+<kbd><img width="216" height="432" src="screenshots/9.png" alt="" /></kbd>
