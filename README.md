@@ -28,12 +28,12 @@ MVVM single activity architecture with Helper class Resource to map viewmodel da
 
 ## Screenshots
 
-<kbd><img width="216" height="432" src="screenshots/1.png" alt="" /></kbd>
-<kbd><img width="216" height="432" src="screenshots/2.png" alt="" /></kbd>
-<kbd><img width="216" height="432" src="screenshots/3.png" alt="" /></kbd>
-<kbd><img width="216" height="432" src="screenshots/4.png" alt="" /></kbd>
-<kbd><img width="216" height="432" src="screenshots/5.png" alt="" /></kbd>
-<kbd><img width="216" height="432" src="screenshots/6.png" alt="" /></kbd>
-<kbd><img width="216" height="432" src="screenshots/7.png" alt="" /></kbd>
-<kbd><img width="216" height="432" src="screenshots/8.png" alt="" /></kbd>
-<kbd><img width="216" height="432" src="screenshots/9.png" alt="" /></kbd>
+<kbd><img width="216" height="432" src="screenshots/1.png" alt="Task list main screen" /></kbd>
+<kbd><img width="216" height="432" src="screenshots/2.png" alt="Search tasks" /></kbd>
+<kbd><img width="216" height="432" src="screenshots/3.png" alt="Sort tasks" /></kbd>
+<kbd><img width="216" height="432" src="screenshots/4.png" alt="hide or delete completed" /></kbd>
+<kbd><img width="216" height="432" src="screenshots/5.png" alt="delete confirmation dialog" /></kbd>
+<kbd><img width="216" height="432" src="screenshots/6.png" alt="add new task" /></kbd>
+<kbd><img width="216" height="432" src="screenshots/7.png" alt="edit task" /></kbd>
+<kbd><img width="216" height="432" src="screenshots/8.png" alt="task updated snack bar" /></kbd>
+<kbd><img width="216" height="432" src="screenshots/9.png" alt="task deleted snack bar" /></kbd>
